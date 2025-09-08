@@ -42,6 +42,8 @@ public class Main {
          */
 
 
+
+
         Subtask subtask1 = new Subtask("Пожарить яищницу", "2 яйца пожарить на сковородке в течении 5 минут", Status.NEW);
         Subtask subtask2 = new Subtask("Попить кофе", "Засыпать кофе в кружку и залить горячей водой, перемешать", Status.NEW);
         Subtask subtask3 = new Subtask("Пропылесосить", "Вставить шнур от пылесоса в розетку", Status.NEW);
