@@ -27,7 +27,6 @@ public class Main {
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
 
-
         taskManager.printAllEpics();
         taskManager.removeEpicByID(3);
         taskManager.updateEpic(epic1);
