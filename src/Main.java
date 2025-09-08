@@ -10,7 +10,6 @@ public class Main {
         Task task2 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
         Task task3 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
 
-        /*
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.addTask(task3);
@@ -22,24 +21,19 @@ public class Main {
         taskManager.printTaskById(2);
         taskManager.removeAllTasks();
 
-         */
-
 
         Epic epic1 = new Epic("Позавтракать", "Что нужно?", Status.NEW);
         Epic epic2 = new Epic("Сделать уборку", "По квартире", Status.NEW);
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
 
-        /*
+
         taskManager.printAllEpics();
         taskManager.removeEpicByID(3);
         taskManager.updateEpic(epic1);
         taskManager.printAllEpics();
         taskManager.printEpicById(1);
         taskManager.removeAllEpics();
-
-
-         */
 
 
 

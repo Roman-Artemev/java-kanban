@@ -48,7 +48,6 @@ public class TaskManager {
         }
     }
 
-
     public void addEpic(Epic epic) {
         epics.put(epic.getId(), epic);
         System.out.println("Большая задача " + epic + " под номером " + (epic.getId() + 1) + " добавлена");
