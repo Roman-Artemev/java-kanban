@@ -42,6 +42,5 @@ public class Main {
 
         taskManager.printAllSubtasks();
         taskManager.removeAllSubtasks();
-
     }
 }
