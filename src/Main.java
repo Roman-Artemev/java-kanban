@@ -1,35 +1,70 @@
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import service.TaskManager;
+
 public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
 
-        Task task1 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
-        Task task2 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
-        Task task3 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
+        Task task1 = new Task("Сходить в магазин", "Купить такого-сякого");
+        Task task2 = new Task("Постирать вещи", "Закинуть все грязные вещи в стирку");
+        Task task3 = new Task("Приготовить", "Любимый борщ");
 
-        taskManager.addTask(task1);
-        taskManager.addTask(task2);
-        taskManager.addTask(task3);
+        Epic epic1 = new Epic("Организовать свадьбу", "Что нужно?");
+        Epic epic2 = new Epic("Организовать юбилей маме", "Кого задействовать?");
 
-        taskManager.printAllTasks();
+        Subtask subtask1 = new Subtask("Найти тамаду", "Веселый и умный", 1);
+        Subtask subtask2 = new Subtask("Забронировать ресторан", "Красивый и дорогой", 1);
+        Subtask subtask3 = new Subtask("Подать заявление в ЗАГС", "Не забыть документы", 1);
+        Subtask subtask4 = new Subtask("Заказать именной торт", "Не забыть указать надпись - с юбилеем", 2);
+        Subtask subtask5 = new Subtask("Организовать стол", "В элитном ресторане", 2);
+        Subtask subtask6 = new Subtask("Жене сказать, чтобы купила букет цветов", "Самый большой букет в магазине", 2);
+
+        /*
+        System.out.println(taskManager.addTask(task1));
+        System.out.println(taskManager.addTask(task2));
+        System.out.println(taskManager.addTask(task3));
+        //System.out.println("Задача " + task.getName() + " под номером " + (task.getId() + 1) + " добавлена");
+
+
+        System.out.println(taskManager.getTasks());
+        taskManager.updateTask(task2);
+        System.out.println(taskManager.getTasks());
+        taskManager.removeTaskByID(2);
+        System.out.println(taskManager.getTasks());
+        System.out.println(taskManager.getTaskById(1));
         taskManager.updateTask(task1);
-        taskManager.removeTaskByID(4);
-        taskManager.printAllTasks();;
-        taskManager.printTaskById(2);
+        System.out.println(taskManager.getTasks());
+
         taskManager.removeAllTasks();
+        System.out.println(taskManager.getTasks());
 
-        Epic epic1 = new Epic("Позавтракать", "Что нужно?", Status.NEW);
-        Epic epic2 = new Epic("Сделать уборку", "По квартире", Status.NEW);
-        taskManager.addEpic(epic1);
-        taskManager.addEpic(epic2);
+         */
 
+        System.out.println(taskManager.addSubtask(subtask1));
+        System.out.println(taskManager.addSubtask(subtask2));
+        System.out.println(taskManager.addSubtask(subtask3));
+        System.out.println(taskManager.addSubtask(subtask4));
+        System.out.println(taskManager.addSubtask(subtask5));
+        System.out.println(taskManager.addSubtask(subtask6));
+        System.out.println(taskManager.addEpic(epic1));
+        System.out.println(taskManager.addEpic(epic2));
+
+        System.out.println(taskManager.getAllEpics());
+
+        /*
         taskManager.printAllEpics();
-        taskManager.removeEpicByID(3);
+        //taskManager.removeEpicByID(3);
         taskManager.updateEpic(epic1);
         taskManager.printAllEpics();
         taskManager.printEpicById(1);
         taskManager.removeAllEpics();
 
+         */
+
+        /*
         Subtask subtask1 = new Subtask("Пожарить яищницу", "2 яйца пожарить на сковородке в течении 5 минут", Status.NEW);
         Subtask subtask2 = new Subtask("Попить кофе", "Засыпать кофе в кружку и залить горячей водой, перемешать", Status.NEW);
         Subtask subtask3 = new Subtask("Пропылесосить", "Вставить шнур от пылесоса в розетку", Status.NEW);
@@ -42,5 +77,7 @@ public class Main {
 
         taskManager.printAllSubtasks();
         taskManager.removeAllSubtasks();
+
+         */
     }
 }

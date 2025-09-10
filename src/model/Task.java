@@ -1,23 +1,16 @@
+package model;
+
 import java.util.Objects;
 
 public class Task {
-    private final int id;
+    private int id;
     private final String name;
     private final String description;
     private Status status;
 
-    static int COUNT;
-
-    public Task(String name, String description, Status status) {
-        this.id = COUNT++;
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = status;
-    }
-
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -26,6 +19,14 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Status getStatus() {
@@ -51,7 +52,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "id=" + (id+1) +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
