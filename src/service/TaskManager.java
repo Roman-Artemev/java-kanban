@@ -57,6 +57,7 @@ public class TaskManager {
     }
 
     public int addEpic(Epic epic) {
+        generatorId = 1;
         final int id = nextId();
         epic.setId(id);
         epics.put(id, epic);
