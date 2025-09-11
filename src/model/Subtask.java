@@ -1,11 +1,10 @@
 package model;
 
 public class Subtask extends Task {
-    protected int epicId;
+    protected Integer epicId;
 
-    public Subtask(String name, String description, int epicId) {
-        super(name, description);
-        this.epicId = epicId;
+    public Subtask(Integer epicId, String name, String description) {
+        super(epicId, name, description);
     }
 
     public int getEpicId() {

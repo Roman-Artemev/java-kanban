@@ -15,19 +15,17 @@ public class Main {
         Epic epic1 = new Epic("Организовать свадьбу", "Что нужно?");
         Epic epic2 = new Epic("Организовать юбилей маме", "Кого задействовать?");
 
-        Subtask subtask1 = new Subtask("Найти тамаду", "Веселый и умный", 1);
-        Subtask subtask2 = new Subtask("Забронировать ресторан", "Красивый и дорогой", 1);
-        Subtask subtask3 = new Subtask("Подать заявление в ЗАГС", "Не забыть документы", 1);
-        Subtask subtask4 = new Subtask("Заказать именной торт", "Не забыть указать надпись - с юбилеем", 2);
-        Subtask subtask5 = new Subtask("Организовать стол", "В элитном ресторане", 2);
-        Subtask subtask6 = new Subtask("Жене сказать, чтобы купила букет цветов", "Самый большой букет в магазине", 2);
+        Subtask subtask1 = new Subtask(1, "Найти тамаду", "Веселый и умный");
+        Subtask subtask2 = new Subtask(1, "Забронировать ресторан", "Красивый и дорогой");
+        Subtask subtask3 = new Subtask(1, "Подать заявление в ЗАГС", "Не забыть документы");
+        Subtask subtask4 = new Subtask(2,"Заказать именной торт", "Не забыть указать надпись - с юбилеем");
+        Subtask subtask5 = new Subtask(2, "Организовать стол", "В элитном ресторане");
+        Subtask subtask6 = new Subtask(2, "Жене сказать, чтобы купила букет цветов", "Самый большой букет в магазине");
 
         /*
         System.out.println(taskManager.addTask(task1));
         System.out.println(taskManager.addTask(task2));
         System.out.println(taskManager.addTask(task3));
-        //System.out.println("Задача " + task.getName() + " под номером " + (task.getId() + 1) + " добавлена");
-
 
         System.out.println(taskManager.getTasks());
         taskManager.updateTask(task2);
@@ -41,7 +39,11 @@ public class Main {
         taskManager.removeAllTasks();
         System.out.println(taskManager.getTasks());
 
+
          */
+
+        System.out.println(taskManager.addEpic(epic1));
+        System.out.println(taskManager.addEpic(epic2));
 
         System.out.println(taskManager.addSubtask(subtask1));
         System.out.println(taskManager.addSubtask(subtask2));
@@ -49,10 +51,9 @@ public class Main {
         System.out.println(taskManager.addSubtask(subtask4));
         System.out.println(taskManager.addSubtask(subtask5));
         System.out.println(taskManager.addSubtask(subtask6));
-        System.out.println(taskManager.addEpic(epic1));
-        System.out.println(taskManager.addEpic(epic2));
 
         System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtask());
 
         /*
         taskManager.printAllEpics();
