@@ -13,10 +13,12 @@ public class TaskManager {
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     private int generatorId = 1;
+    private int generatorIdEpic = 1;
+    private int generatorIdSubtask = 1;
 
 
     public int addTask(Task task) {
-        final int id = nextId();
+        final int id = generatorId++;
         task.setId(id);
         tasks.put(id, task);
         task.setStatus(Status.NEW);
@@ -57,8 +59,7 @@ public class TaskManager {
     }
 
     public int addEpic(Epic epic) {
-        generatorId = 1;
-        final int id = nextId();
+        final int id = generatorIdEpic++;
         epic.setId(id);
         epics.put(id, epic);
         epic.setStatus(Status.NEW);
@@ -66,7 +67,7 @@ public class TaskManager {
     }
 
     public int addSubtask(Subtask subtask) {
-        final int newId = nextId();
+        final int newId = generatorIdSubtask++;
         subtask.setId(newId);
         subtasks.put(newId, subtask);
 
@@ -155,7 +156,10 @@ public class TaskManager {
         }
     }
 
+    /*
     public int nextId() {
         return generatorId++;
     }
+
+     */
 }
