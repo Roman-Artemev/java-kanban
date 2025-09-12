@@ -16,13 +16,13 @@ public class Main {
         Epic epic1 = new Epic("Организовать свадьбу", "Что нужно?", Status.NEW);
         Epic epic2 = new Epic("Организовать юбилей маме", "Кого задействовать?", Status.NEW);
 
-        Subtask subtask1 = new Subtask(1, "Найти тамаду", "Веселый и умный", Status.NEW);
-        Subtask subtask2 = new Subtask(1, "Забронировать ресторан", "Красивый и дорогой", Status.NEW);
-        Subtask subtask3 = new Subtask(1, "Подать заявление в ЗАГС", "Не забыть документы", Status.NEW);
+        Subtask subtask1 = new Subtask(1, "Найти тамаду", "Веселый и умный", Status.DONE);
+        Subtask subtask2 = new Subtask(1, "Забронировать ресторан", "Красивый и дорогой", Status.DONE);
+        Subtask subtask3 = new Subtask(1, "Подать заявление в ЗАГС", "Не забыть документы", Status.DONE);
         Subtask subtask4 = new Subtask(2,"Заказать именной торт", "Не забыть указать надпись - с юбилеем", Status.NEW);
         Subtask subtask5 = new Subtask(2, "Организовать стол", "В элитном ресторане", Status.NEW);
         Subtask subtask6 = new Subtask(2, "Жене сказать, чтобы купила букет цветов", "Самый большой букет в магазине", Status.NEW);
-/*
+
         System.out.println(taskManager.addTask(task1));
         System.out.println(taskManager.addTask(task2));
         System.out.println(taskManager.addTask(task3));
@@ -40,8 +40,6 @@ public class Main {
         taskManager.removeAllTasks();
         System.out.println(taskManager.getTasks());
 
-
- */
         System.out.println(taskManager.addEpic(epic1));
         System.out.println(taskManager.addEpic(epic2));
 
@@ -59,6 +57,9 @@ public class Main {
         System.out.println(taskManager.getEpicById(1));
         System.out.println(taskManager.getSubtaskById(2));
 
+        taskManager.updateEpicByStatus(1);
+        System.out.println(taskManager.getAllEpics());
+
         Epic updatedEpic = new Epic("Поехать отдыхать за границу", "Что нужно?", Status.NEW);
         taskManager.updateEpic(2, updatedEpic);
         System.out.println(taskManager.getAllEpics());
@@ -74,9 +75,10 @@ public class Main {
         taskManager.removeSubtaskById(4);
         System.out.println(taskManager.getAllSubtask());
 
+        taskManager.updateEpicByStatus(1);
+
         taskManager.removeAllEpics();
         taskManager.removeAllSubtasks();
-
 
     }
 }
