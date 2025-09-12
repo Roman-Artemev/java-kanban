@@ -60,6 +60,7 @@ public class TaskManager {
         Integer epicID = newSubtask.getEpicId();
         Epic epic = epics.get(epicID);
         epic.subtaskIds.add(newId);
+        epic.setStatus(newSubtask.getStatus());
 
         return newId;
     }
@@ -72,7 +73,8 @@ public class TaskManager {
     public void removeAllSubtasks() {
         subtasks.clear();
         for (Epic epic : epics.values()) {
-            epic.setStatus(Status.DONE);
+            epic.subtaskIds.clear();
+            epic.setStatus(Status.NEW);
         }
     }
 
@@ -92,7 +94,12 @@ public class TaskManager {
     }
 
     public void removeSubtaskById(Integer id) {
-        subtasks.remove(id);
+        Subtask subtask = subtasks.remove(id);
+
+        Integer epicID = subtask.getEpicId();
+        Epic epic = epics.get(epicID);
+        epic.subtaskIds.remove(id);
+        epic.setStatus(Status.IN_PROGRESS);
     }
 
     public Epic getEpicById(Integer id) {
@@ -116,7 +123,8 @@ public class TaskManager {
     public void updateEpicByStatus(Integer id) {
         int countByStatusDONE = 0;
         int countByStatusNEW = 0;
-        int totalSubtasksInEpic = 0;
+        int totalSubtasksInEpicByStatusNEW = 0;
+        int totalSubtasksInEpicByStatusDONE = 0;
         Epic epic = epics.get(id);
         if (epic.subtaskIds.isEmpty()) {
             epic.setStatus(Status.NEW);
@@ -126,17 +134,18 @@ public class TaskManager {
             Subtask subtask = subtasks.get(epicId);
             if (subtask.getStatus() == Status.DONE) {
                 countByStatusDONE++;
-                totalSubtasksInEpic++;
+                totalSubtasksInEpicByStatusDONE++;
             }
 
             if (subtask.getStatus() == Status.NEW) {
                 countByStatusNEW++;
+                totalSubtasksInEpicByStatusNEW++;
             }
         }
 
-        if (countByStatusDONE == totalSubtasksInEpic) {
+        if (countByStatusDONE == totalSubtasksInEpicByStatusDONE) {
             epic.setStatus(Status.DONE);
-        } else if (countByStatusNEW == totalSubtasksInEpic) {
+        } else if (countByStatusNEW == totalSubtasksInEpicByStatusNEW) {
             epic.setStatus(Status.NEW);
         } else {
             epic.setStatus(Status.IN_PROGRESS);
