@@ -62,19 +62,21 @@ public class Main {
         Epic updatedEpic = new Epic("Поехать отдыхать за границу", "Что нужно?", Status.NEW);
         taskManager.updateEpic(2, updatedEpic);
         System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtask());
+
 
         Subtask updatedSubtask = new Subtask(2, "Торт испечем сами", "Сделанное своими руками всегда ценится", Status.NEW);
-        taskManager.updateSubtask(subtask3);
+        taskManager.updateSubtask(4, updatedSubtask);
+        System.out.println(taskManager.getAllSubtask());
 
-        /*
-        taskManager.removeEpicById(2);
+        taskManager.removeEpicById(1);
+        System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtask());
         taskManager.removeSubtaskById(4);
+        System.out.println(taskManager.getAllSubtask());
 
         taskManager.removeAllEpics();
         taskManager.removeAllSubtasks();
 
-         */
 
     }
 }
