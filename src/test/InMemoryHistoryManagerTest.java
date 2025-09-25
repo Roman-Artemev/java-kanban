@@ -20,14 +20,17 @@ class InMemoryHistoryManagerTest {
     private Task task;
     private Epic epic;
     private Subtask subtask;
+    int MAX_SIZE = 10;
 
     @BeforeEach
     public void setUp() {
         manager = new InMemoryHistoryManager();
+
         taskManager = new InMemoryTaskManager();
         task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         epic = new Epic("Организовать свадьбу", "Что нужно?", Status.NEW);
         subtask = new Subtask(1, "Найти тамаду", "Веселый и умный", Status.NEW);
+
     }
 
     @Test
@@ -72,13 +75,13 @@ class InMemoryHistoryManagerTest {
         }
 
         // Проверяем, что размер списка не превышает MAX_SIZE
-        assertEquals(InMemoryHistoryManager.MAX_SIZE, manager.getHistory().size());
+        assertEquals(MAX_SIZE, manager.getHistory().size());
 
         // Проверяем, что первая задача была удалена
         assertNotEquals(tasks.get(0), manager.getHistory().get(0));
 
         // Проверяем, что последняя задача присутствует
-        assertEquals(tasks.get(tasks.size() - 1), manager.getHistory().get(InMemoryHistoryManager.MAX_SIZE - 1));
+        assertEquals(tasks.get(tasks.size() - 1), manager.getHistory().get(MAX_SIZE - 1));
     }
 
     @Test

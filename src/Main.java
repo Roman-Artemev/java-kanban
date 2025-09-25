@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getTaskManager(TaskManagerType.IN_MEMORY);
-        //InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
         Task task1 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
         Task task2 = new Task("Постирать вещи", "Закинуть все грязные вещи в стирку", Status.NEW);
@@ -27,7 +26,6 @@ public class Main {
         Subtask subtask5 = new Subtask(2, "Организовать стол", "В элитном ресторане", Status.NEW);
         Subtask subtask6 = new Subtask(2, "Жене сказать, чтобы купила букет цветов", "Самый большой букет в магазине", Status.NEW);
 
-        /*
         System.out.println(taskManager.addTask(task1));
         System.out.println(taskManager.addTask(task2));
         System.out.println(taskManager.addTask(task3));
@@ -47,14 +45,12 @@ public class Main {
         //taskManager.removeAllTasks();
         //System.out.println(taskManager.getTasks());
 
-         */
 
         System.out.println(taskManager.addEpic(epic1));
 
         System.out.println(taskManager.addEpic(epic2));
 
 
-/*
         System.out.println(taskManager.addSubtask(subtask1));
         System.out.println(taskManager.addSubtask(subtask2));
         System.out.println(taskManager.addSubtask(subtask3));
@@ -81,34 +77,35 @@ public class Main {
         System.out.println(taskManager.getAllEpics());
 
         Epic updatedEpic = new Epic("Поехать отдыхать за границу", "Что нужно?", Status.NEW);
-        taskManager.updateEpic(2, updatedEpic);
+        //taskManager.updateEpic(2, updatedEpic);
         System.out.println(taskManager.getAllEpics());
 
 
         Subtask updatedSubtask = new Subtask(2, "Торт испечем сами", "Сделанное своими руками всегда ценится", Status.NEW);
-        taskManager.updateSubtask(4, updatedSubtask);
+        //taskManager.updateSubtask(4, updatedSubtask);
         System.out.println(taskManager.getAllSubtask());
 
 
         System.out.println(taskManager.getHistory());
 
 
-        /*
-        taskManager.removeEpicById(1);
+        //taskManager.removeEpicById(1);
         System.out.println(taskManager.getAllEpics());
         System.out.println(taskManager.getAllSubtask());
 
-        taskManager.removeSubtaskById(4);
+        //taskManager.removeSubtaskById(4);
         System.out.println(taskManager.getAllSubtask());
 
-         */
+
 
         taskManager.updateEpicByStatus(2);
         System.out.println(taskManager.getAllEpics());
+        System.out.println(taskManager.getAllSubtaskByIdEpic());
 
 
         //taskManager.removeAllEpics();
         //taskManager.removeAllSubtasks();
+
 
     }
 }
