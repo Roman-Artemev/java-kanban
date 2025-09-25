@@ -19,7 +19,7 @@ class ManagersTest {
 
     @Test
     void getDefaultHistory() {
-        InMemoryHistoryManager history = Managers.getDefaultHistory();
+        HistoryManager history = Managers.getDefaultHistory();
         assertNotNull(history);
         assertTrue(history instanceof InMemoryHistoryManager);
     }

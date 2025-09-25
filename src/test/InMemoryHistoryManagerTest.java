@@ -20,14 +20,17 @@ class InMemoryHistoryManagerTest {
     private Task task;
     private Epic epic;
     private Subtask subtask;
+    int MAX_SIZE = 10;
 
     @BeforeEach
     public void setUp() {
         manager = new InMemoryHistoryManager();
+
         taskManager = new InMemoryTaskManager();
         task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         epic = new Epic("Организовать свадьбу", "Что нужно?", Status.NEW);
         subtask = new Subtask(1, "Найти тамаду", "Веселый и умный", Status.NEW);
+
     }
 
     @Test
@@ -47,6 +50,20 @@ class InMemoryHistoryManagerTest {
         assertEquals(task, manager.getHistory().get(0));
         assertEquals(epic, manager.getHistory().get(1));
         assertEquals(subtask, manager.getHistory().get(2));
+    }
+
+    @Test
+    void testRemoveTaskById() {
+        manager.add(task);
+        manager.add(epic);
+        manager.add(subtask);
+
+        manager.remove(2);
+
+        assertEquals(2, manager.getHistory().size());
+        assertTrue(manager.getHistory().contains(subtask));
+        assertTrue(manager.getHistory().contains(task));
+        assertFalse(manager.getHistory().contains(epic));
     }
 
     @Test
@@ -72,19 +89,29 @@ class InMemoryHistoryManagerTest {
         }
 
         // Проверяем, что размер списка не превышает MAX_SIZE
-        assertEquals(InMemoryHistoryManager.MAX_SIZE, manager.getHistory().size());
+        assertEquals(MAX_SIZE, manager.getHistory().size());
 
         // Проверяем, что первая задача была удалена
         assertNotEquals(tasks.get(0), manager.getHistory().get(0));
 
         // Проверяем, что последняя задача присутствует
-        assertEquals(tasks.get(tasks.size() - 1), manager.getHistory().get(InMemoryHistoryManager.MAX_SIZE - 1));
+        assertEquals(tasks.get(tasks.size() - 1), manager.getHistory().get(MAX_SIZE - 1));
     }
 
     @Test
-    public void testGetEmptyHistory() {
-        List<Task> history = manager.getHistory();
-        assertTrue(history.isEmpty());
-        assertEquals(0, history.size());
+    void testUpdateExistingTask() {
+        manager.add(task);
+
+        // Обновляем задачу с тем же ID
+        Task updatedTask = new Task(1, "Updated Task 1", "Updated Task1");
+        manager.add(updatedTask);
+
+        assertEquals(1, manager.getHistory().size());
+        assertEquals(updatedTask, manager.getHistory().get(0));
+    }
+
+    @Test
+    void testEmptyHistory() {
+        assertTrue(manager.getHistory().isEmpty());
     }
 }
