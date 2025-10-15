@@ -53,6 +53,20 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
+    void testRemoveTaskById() {
+        manager.add(task);
+        manager.add(epic);
+        manager.add(subtask);
+
+        manager.remove(2);
+
+        assertEquals(2, manager.getHistory().size());
+        assertTrue(manager.getHistory().contains(subtask));
+        assertTrue(manager.getHistory().contains(task));
+        assertFalse(manager.getHistory().contains(epic));
+    }
+
+    @Test
     public void testMaxSize() {
         // Создаем список задач размером MAX_SIZE + 1
         List<Task> tasks = List.of(
@@ -85,9 +99,19 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    public void testGetEmptyHistory() {
-        List<Task> history = manager.getHistory();
-        assertTrue(history.isEmpty());
-        assertEquals(0, history.size());
+    void testUpdateExistingTask() {
+        manager.add(task);
+
+        // Обновляем задачу с тем же ID
+        Task updatedTask = new Task(1, "Updated Task 1", "Updated Task1");
+        manager.add(updatedTask);
+
+        assertEquals(1, manager.getHistory().size());
+        assertEquals(updatedTask, manager.getHistory().get(0));
+    }
+
+    @Test
+    void testEmptyHistory() {
+        assertTrue(manager.getHistory().isEmpty());
     }
 }
