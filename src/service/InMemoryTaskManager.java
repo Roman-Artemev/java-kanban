@@ -17,8 +17,6 @@ public class InMemoryTaskManager implements TaskManager {
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int generatorId = 1;
-    //private int generatorIdEpic = 1;
-    //private int generatorIdSubtask = 1;
 
     public List<Task> getHistory() {
         return historyManager.getHistory();
@@ -93,12 +91,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllEpics() {
+        for (Epic epic : epics.values()) {
+            historyManager.remove(epic.getId());
+        }
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
         epics.clear();
         subtasks.clear();
     }
 
     @Override
     public void removeAllSubtasks() {
+        for (Subtask subtask : subtasks.values()) {
+            historyManager.remove(subtask.getId());
+        }
         subtasks.clear();
         for (Epic epic : epics.values()) {
             epic.subtaskIds.clear();
@@ -124,6 +131,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epics.remove(id);
         epic.subtaskIds.clear();
+        historyManager.remove(id);
     }
 
     @Override
@@ -134,6 +142,7 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(epicID);
         epic.subtaskIds.remove(id);
         epic.setStatus(Status.IN_PROGRESS);
+        historyManager.remove(id);
     }
 
     @Override
@@ -158,6 +167,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(Integer id, Epic updatedEpic) {
         updatedEpic.setId(id);
         epics.put(updatedEpic.getId(), updatedEpic);
+        historyManager.add(updatedEpic);
     }
 
     @Override
@@ -168,7 +178,7 @@ public class InMemoryTaskManager implements TaskManager {
         Integer epicID = updatedSubtask.getEpicId();
         Epic epic = epics.get(epicID);
         epic.setStatus(updatedSubtask.getStatus());
-
+        historyManager.add(updatedSubtask);
     }
 
     @Override

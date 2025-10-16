@@ -56,6 +56,7 @@ public class Main {
 
         System.out.println("Очистка всех tasks");
         taskManager.removeAllTasks();
+        taskManager.removeAllSubtasks();
 
         printIssuesAndHistory(taskManager);
 

@@ -45,7 +45,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getHistory() {
-        historyManager.add(task);
+        taskManager.addTask(task);
         final List<Task> history = historyManager.getHistory();
         assertNotNull(history, "После добавления задачи, история не должна быть пустой.");
         assertEquals(1, history.size(), "После добавления задачи, история не должна быть пустой.");

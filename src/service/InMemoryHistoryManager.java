@@ -26,11 +26,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         idToNode.put(task.getId(), newNode);
         listTasks.add(task);
-        /*Node current = head;
-        for (int i = 0; i < idToNode.size(); i++) {
-            listTasks.add((Task) current.value);
-            current = current.next;
-        }*/
     }
 
     public List<Task> getTasks() {
