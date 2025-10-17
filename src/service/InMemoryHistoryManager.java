@@ -28,15 +28,16 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public List<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        Node current = head;
 
-        while (current != null) {
-            tasks.add(current.task);
-            current = current.next;
+        Node node = head;
+        if (node != null) {
+            tasks.add(node.task);
+            node = node.next;
         }
-
         return tasks;
     }
+
+
 
     private void removeNode(Node node) {
 
@@ -78,25 +79,18 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        ArrayList<Task> tasks = new ArrayList<>();
+        return getTasks();
+    }
+}
 
-        Node node = head;
-        while (node != null) {
-            tasks.add(node.task);
-            node = node.next;
+    class Node<T> {
+        public Node<T> next;
+        public Node<T> previous;
+        public Task task;
+
+        public Node(Node next, Task task, Node previous) {
+            this.task = task;
+            this.next = next;
+            this.previous = previous;
         }
-        return tasks;
     }
-}
-
-class Node<T> {
-    public Node<T> next;
-    public Node<T> previous;
-    public Task task;
-
-    public Node(Node next, Task task, Node previous) {
-        this.task = task;
-        this.next = next;
-        this.previous = previous;
-    }
-}
