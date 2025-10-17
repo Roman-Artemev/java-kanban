@@ -12,6 +12,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node head;
     private Node tail;
     private final Map<Integer, Node> idToNode = new HashMap<>();
+    ArrayList<Task> listTasks = new ArrayList<>();
 
     private void linkLast(Task task) {
         Node newNode = new Node(tail, task, null);
@@ -24,19 +25,12 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         idToNode.put(task.getId(), newNode);
+        listTasks.add(task);
     }
 
     public List<Task> getTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        Node node = head;
-        if (node != null) {
-            tasks.add(node.task);
-            node = node.next;
-        }
-        return tasks;
+        return listTasks;
     }
-
 
 
     private void removeNode(Node node) {
@@ -62,6 +56,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (idToNode.containsKey(task.getId())) {
             removeNode(idToNode.get(task.getId()));
             idToNode.remove(task.getId());
+            listTasks.remove(task);
         }
 
         // Добавляем новую задачу в конец
@@ -74,6 +69,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node != null) {
             removeNode(node);
             idToNode.remove(id);
+            listTasks.removeIf(task -> task.getId() == id);
         }
     }
 
@@ -83,14 +79,14 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 }
 
-    class Node<T> {
-        public Node<T> next;
-        public Node<T> previous;
-        public Task task;
+class Node<T> {
+    public Node<T> next;
+    public Node<T> previous;
+    public T value;
 
-        public Node(Node next, Task task, Node previous) {
-            this.task = task;
-            this.next = next;
-            this.previous = previous;
-        }
+    public Node(Node next, T value, Node previous) {
+        this.value = value;
+        this.next = next;
+        this.previous = previous;
     }
+}

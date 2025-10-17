@@ -42,6 +42,7 @@ public class Main {
 
         printIssuesAndHistory(taskManager);
 
+
         System.out.println("Изменение задачи: ");
         Task updatedTask = new Task("Влажная уборка", "Всей квартиры", Status.IN_PROGRESS);
         taskManager.updatedTask(1, updatedTask);
@@ -55,14 +56,12 @@ public class Main {
 
         printIssuesAndHistory(taskManager);
 
-        /*
         System.out.println("Очистка всех tasks");
         taskManager.removeAllTasks();
         taskManager.removeAllSubtasks();
 
         printIssuesAndHistory(taskManager);
 
-         */
 
         /*
         taskManager.getTaskById(1);
