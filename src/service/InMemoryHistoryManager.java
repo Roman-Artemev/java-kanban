@@ -12,24 +12,30 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node head;
     private Node tail;
     private final Map<Integer, Node> idToNode = new HashMap<>();
-    ArrayList<Task> listTasks = new ArrayList<>();
 
     private void linkLast(Task task) {
         Node newNode = new Node(tail, task, null);
         final Node oldTail = tail;
         tail = newNode;
-        if(oldTail == null) {
+        if (oldTail == null) {
             head = newNode;
         } else {
             oldTail.next = newNode;
         }
 
         idToNode.put(task.getId(), newNode);
-        listTasks.add(task);
     }
 
     public List<Task> getTasks() {
-        return listTasks;
+        ArrayList<Task> tasks = new ArrayList<>();
+        Node current = head;
+
+        while (current != null) {
+            tasks.add(current.task);
+            current = current.next;
+        }
+
+        return tasks;
     }
 
     private void removeNode(Node node) {
@@ -55,7 +61,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (idToNode.containsKey(task.getId())) {
             removeNode(idToNode.get(task.getId()));
             idToNode.remove(task.getId());
-            listTasks.remove(task);
         }
 
         // Добавляем новую задачу в конец
@@ -68,23 +73,29 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node != null) {
             removeNode(node);
             idToNode.remove(id);
-            listTasks.removeIf(task -> task.getId() == id);
         }
     }
 
     @Override
     public List<Task> getHistory() {
-        return getTasks();
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        Node node = head;
+        while (node != null) {
+            tasks.add(node.task);
+            node = node.next;
+        }
+        return tasks;
     }
 }
 
-class Node <T> {
+class Node<T> {
     public Node<T> next;
     public Node<T> previous;
-    public T value;
+    public Task task;
 
-    public Node(Node next, T value, Node previous) {
-        this.value = value;
+    public Node(Node next, Task task, Node previous) {
+        this.task = task;
         this.next = next;
         this.previous = previous;
     }
