@@ -3,9 +3,9 @@ package model;
 import java.util.Objects;
 
 public class Task {
-    private Integer id;
     private final String name;
     private final String description;
+    private Integer id;
     private Status status;
 
     public Task(String name, String description, Status status) {
