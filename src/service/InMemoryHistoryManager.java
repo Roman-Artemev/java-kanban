@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-
     private Node head;
     private Node tail;
     private final Map<Integer, Node> idToNode = new HashMap<>();
@@ -18,39 +17,45 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node newNode = new Node(tail, task, null);
         final Node oldTail = tail;
         tail = newNode;
-        if(oldTail == null) {
+        if (oldTail == null) {
             head = newNode;
         } else {
             oldTail.next = newNode;
         }
 
         idToNode.put(task.getId(), newNode);
+        listTasks.add(task);
     }
 
     public List<Task> getTasks() {
-
-        Node current = head;
-        for (int i = 0; i < idToNode.size(); i++) {
-            listTasks.add((Task) current.value);
-            current = current.next;
-        }
         return listTasks;
     }
 
+
     private void removeNode(Node node) {
 
-        for (int i = 0; i < idToNode.size(); i++) {
-            if(node.value == idToNode.values()) {
-                idToNode.remove(node);
-            }
+        if (node.previous != null) {
+            node.previous.next = node.next;
+        } else {
+            head = node.next;
         }
+
+        if (node.next != null) {
+            node.next.previous = node.previous;
+        } else {
+            tail = node.previous;
+        }
+
+        idToNode.remove(node);
     }
 
     @Override
     public void add(Task task) {
         // Если задача уже существует - удаляем её
-        if (idToNode.containsValue(task)) {
+        if (idToNode.containsKey(task.getId())) {
+            removeNode(idToNode.get(task.getId()));
             idToNode.remove(task.getId());
+            listTasks.remove(task);
         }
 
         // Добавляем новую задачу в конец
@@ -62,6 +67,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node node = idToNode.get(id);
         if (node != null) {
             removeNode(node);
+            idToNode.remove(id);
+            listTasks.removeIf(task -> task.getId() == id);
         }
     }
 
@@ -71,7 +78,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 }
 
-class Node <T> {
+class Node<T> {
     public Node<T> next;
     public Node<T> previous;
     public T value;
@@ -82,3 +89,4 @@ class Node <T> {
         this.previous = previous;
     }
 }
+

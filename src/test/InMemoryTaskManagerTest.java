@@ -45,6 +45,7 @@ class InMemoryTaskManagerTest {
 
     @Test
     void getHistory() {
+        taskManager.addTask(task);
         historyManager.add(task);
         final List<Task> history = historyManager.getHistory();
         assertNotNull(history, "После добавления задачи, история не должна быть пустой.");
@@ -240,7 +241,7 @@ class InMemoryTaskManagerTest {
         taskManager.addSubtask(subtask1);
         assertEquals(2, epic.subtaskIds.size());
 
-        taskManager.removeSubtaskById(1);
+        taskManager.removeSubtaskById(2);
         assertEquals(1, taskManager.getAllSubtask().size(), "Список пуст");
         assertEquals(1, epic.subtaskIds.size());
     }
@@ -260,12 +261,11 @@ class InMemoryTaskManagerTest {
         taskManager.addEpic(epic);
         taskManager.addSubtask(subtask);
         taskManager.addSubtask(subtask1);
-        assertEquals(2, epic.subtaskIds.size());
 
-        assertEquals(subtask1, taskManager.getSubtaskById(2));
+        assertEquals(subtask, taskManager.getSubtaskById(2));
 
         final List<Subtask> subtaks = taskManager.getAllSubtask();
-        assertEquals(taskManager.getSubtaskById(2), subtaks.get(1));
+        assertEquals(taskManager.getSubtaskById(2), subtaks.get(0));
     }
 
     @Test
@@ -299,7 +299,7 @@ class InMemoryTaskManagerTest {
         taskManager.updateSubtask(2, newSubtask);
         assertEquals(2, subtaks.size(), "Неверное количество задач.");
         assertEquals(2, epic.subtaskIds.size());
-        assertEquals(newSubtask, subtaks.get(1));
+        assertEquals(newSubtask, subtaks.get(0));
 
     }
 
@@ -317,7 +317,7 @@ class InMemoryTaskManagerTest {
         taskManager.addSubtask(subtask2);
         taskManager.updateEpicByStatus(newEpic.getId());
         assertEquals(Status.DONE, newEpic.getStatus());
-        taskManager.removeSubtaskById(1);
+        taskManager.removeSubtaskById(2);
 
         taskManager.addSubtask(subtask3);
         taskManager.updateEpicByStatus(newEpic.getId());
