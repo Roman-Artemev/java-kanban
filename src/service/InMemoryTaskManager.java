@@ -17,6 +17,8 @@ public class InMemoryTaskManager implements TaskManager {
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int generatorId = 1;
+    private int generatorIdEpic = 1;
+    private int generatorIdSubtask = 1;
 
     public List<Task> getHistory() {
         return historyManager.getHistory();
