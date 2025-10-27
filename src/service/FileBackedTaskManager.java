@@ -7,15 +7,13 @@ import model.Status;
 import model.Subtask;
 import model.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File saveFile;
@@ -151,13 +149,59 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 content.append(subtask).append("\n");
             }
 
-            Files.writeString(saveFile.toPath(), content.toString());
+            Files.write(saveFile.toPath(), content.toString().getBytes());
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка сохранения в файл: " + e.getMessage());
         }
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
+        Path path = Paths.get(file.toURI());
+        FileBackedTaskManager manager = new FileBackedTaskManager(file);
+
+        if (!file.exists() || !file.isFile()) {
+            throw new ManagerSaveException("Файл задач не является файлом или не существует");
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while (reader.ready()) {
+                String issue = reader.readLine();
+                String[] fields = issue.split(",");
+                //String issues = issue.split("\\{")[0];
+                long id = Long.parseLong(fields[0]);
+                TaskType type = TaskType.valueOf(fields[1]);
+                String name = fields[2];
+                Status status = Status.valueOf(fields[3]);
+                String description = fields[4];
+                String epicIdStr = fields[5];
+
+                switch (type) {
+                    case TASK:
+                        Task task = new Task(name, description, status);
+                        manager.addTask(task);
+                        break;
+                    case EPIC:
+                        task = new Epic(name, description, status);
+                        manager.addEpic((Epic) task);
+                        break;
+                    case SUBTASK:
+                        int epicId = Integer.parseInt(epicIdStr);
+                        task = new Subtask(epicId, name, description, status);
+                        manager.addSubtask((Subtask) task);
+                        break;
+                /*
+                    case "Task" -> new Task(name, description, status);
+                    case "Subtask" -> manager.addIssue(new Subtask(issue));
+                    case "Epic" -> manager.addIssue(new Epic(issue));
+
+                 */
+                }
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Ошибка при загрузке из файла");
+        }
+        return manager;
+    }
+}
         /*
         Path path = Paths.get(file.toURI());
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
@@ -174,7 +218,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
         return manager;
 
-         */
         try {
             // Читаем содержимое файла
             String content = Files.readString(file.toPath());
@@ -239,3 +282,5 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 }
+
+         */
