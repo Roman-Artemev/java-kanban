@@ -1,5 +1,7 @@
 package model;
 
+import service.TaskType;
+
 public class Subtask extends Task {
     protected Integer epicId;
 
@@ -19,6 +21,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
+        /*
         return "Subtask{" +
                 "epicId=" + getEpicId() +
                 ", id=" + getId() +
@@ -26,5 +29,9 @@ public class Subtask extends Task {
                 ", description='" + getDescription() + '\'' +
                 ", status=" + getStatus().toString() +
                 '}';
+
+         */
+        return String.format("%d,%s,%s,%s,%s,%d",
+                getId(), TaskType.SUBTASK, getName(), getStatus(), getDescription(), epicId);
     }
 }

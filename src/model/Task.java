@@ -1,5 +1,7 @@
 package model;
 
+import service.TaskType;
+
 import java.util.Objects;
 
 public class Task {
@@ -58,11 +60,16 @@ public class Task {
 
     @Override
     public String toString() {
+        /*
         return "Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
+
+         */
+        return String.format("%d,%s,%s,%s,%s,",
+                id, TaskType.TASK, name, status, description);
     }
 }

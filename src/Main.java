@@ -10,7 +10,7 @@ import service.TaskManagerType;
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getTaskManager(TaskManagerType.IN_MEMORY);
+        TaskManager taskManager = Managers.getTaskManager(TaskManagerType.FILE_BACKED);
 
         Task task1 = new Task("Сходить в магазин", "Купить такого-сякого", Status.NEW);
         Task task2 = new Task("Постирать вещи", "Закинуть все грязные вещи в стирку", Status.NEW);

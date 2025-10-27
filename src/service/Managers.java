@@ -1,5 +1,7 @@
 package service;
 
+import java.io.File;
+
 public class Managers {
 
     public static TaskManager getTaskManager(TaskManagerType type) {
@@ -8,7 +10,8 @@ public class Managers {
                 return new InMemoryTaskManager();
             }
             case FILE_BACKED -> {
-                return null;
+                File saveFile = new File("tasks.csv");
+                return FileBackedTaskManager.loadFromFile(saveFile);
             }
         }
         return new InMemoryTaskManager();

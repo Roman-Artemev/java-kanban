@@ -1,5 +1,7 @@
 package model;
 
+import service.TaskType;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -12,6 +14,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
+        /*
         return "Epic{" +
                 "subtaskIds=" + subtaskIds.toString() +
                 ", id=" + getId() +
@@ -19,5 +22,10 @@ public class Epic extends Task {
                 ", description='" + getDescription() + '\'' +
                 ", status=" + getStatus().toString() +
                 '}';
+
+         */
+
+        return String.format("%d,%s,%s,%s,%s,",
+                getId(), TaskType.EPIC, getName(), getStatus(), getDescription());
     }
 }
